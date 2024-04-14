@@ -315,6 +315,7 @@
     <!-- NAVBAR -->
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg bg-white sticky-top">
+        
         <div class="container">
             <a class="navbar-brand" href="#">
                 <img src="" alt="">
@@ -633,6 +634,14 @@
                 console.error('Error fetching data:', error);
             }
         });
+        document.addEventListener("DOMContentLoaded", function() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var username = urlParams.get('username');
+    if (username) {
+        document.getElementById("displayusername").innerText = username;
+    }
+});
+
     </script>
     
     
