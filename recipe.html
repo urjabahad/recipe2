@@ -408,6 +408,7 @@
 // Get username and display it
 const username = getUsernameFromURL();
 if (username) {
+    console.log(username);
     document.getElementById('displayusername').textContent = username;
 } else {
     // Handle the case when no username is provided
