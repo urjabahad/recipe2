@@ -400,20 +400,20 @@
                 });
             });
         }
-        function getUsernameFromURL() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('username');
-}
+          function getUsernameFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('username');
+    }
 
-// Get username and display it
-const username = getUsernameFromURL();
-if (username) {
-    console.log(username);
-    document.getElementById('displayusername').textContent = username;
-} else {
-    // Handle the case when no username is provided
-    document.getElementById('displayusername').textContent = 'Guest';
-}
+    // Get username and display it
+    const username = getUsernameFromURL();
+    if (username) {
+        console.log(username);
+        document.getElementById('displayusername').textContent = username;
+    } else {
+        // Handle the case when no username is provided
+        document.getElementById('displayusername').textContent = 'Guest';
+    }
 
         function openRecipePage(recipeId) {
             // Redirect to a new page with the selected recipe's instructions
