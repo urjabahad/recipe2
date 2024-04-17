@@ -315,7 +315,8 @@
     <!-- NAVBAR -->
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg bg-white sticky-top">
-        
+        <h2>Hi <b id="displayusername" style="color:red;"></b>!</h2>
+
         <div class="container">
             <a class="navbar-brand" href="#">
                 <img src="" alt="">
@@ -635,11 +636,20 @@
             }
         });
         document.addEventListener("DOMContentLoaded", function() {
-    var urlParams = new URLSearchParams(window.location.search);
-    var username = urlParams.get('username');
-    if (username) {
-        document.getElementById("displayusername").innerText = username;
-    }
+   function getUsernameFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('username');
+}
+
+// Get username and display it
+const username = getUsernameFromURL();
+if (username) {
+    document.getElementById('displayusername').textContent = username;
+} else {
+    // Handle the case when no username is provided
+    document.getElementById('displayusername').textContent = 'Guest';
+}
+
 });
 
     </script>
