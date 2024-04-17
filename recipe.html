@@ -265,6 +265,7 @@
         </div>
     </div>
     <div class="right">
+        <h2><b id="displayusername" style="color:red;"></b></h2>
         <div class="head">
             <p class="re">Recipes</p>
             <h1 class="title">Vegetarian Vibes</h1>
@@ -399,6 +400,20 @@
                 });
             });
         }
+        function getUsernameFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('username');
+}
+
+// Get username and display it
+const username = getUsernameFromURL();
+if (username) {
+    document.getElementById('displayusername').textContent = username;
+} else {
+    // Handle the case when no username is provided
+    document.getElementById('displayusername').textContent = 'Guest';
+}
+
         function openRecipePage(recipeId) {
             // Redirect to a new page with the selected recipe's instructions
             window.location.href = `indi-recipe.html?id=${recipeId}`;
