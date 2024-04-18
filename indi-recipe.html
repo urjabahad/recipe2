@@ -154,6 +154,16 @@
     // Get recipe id from URL query parameter
 const urlParams = new URLSearchParams(window.location.search);
 const recipeId = urlParams.get('id');
+
+    // Get username and display it
+    const username = urlParams.get('username');
+    if (username) {
+        console.log(username);
+        document.getElementById('displayusername').textContent = username;
+    } else {
+        // Handle the case when no username is provided
+        document.getElementById('displayusername').textContent = 'Guest';
+    }
 const instructionsContainer = document.getElementById('instructions');
 fetch(`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiKey=dfdb24521211484f853aa615b909f2e2`)
             .then(response => response.json())
