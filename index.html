@@ -30,22 +30,24 @@
                 console.error('Error fetching data:', error);
             }
         });
-        document.addEventListener("DOMContentLoaded", function() {
-   function getUsernameFromURL() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('username');
-}
+       document.addEventListener("DOMContentLoaded", function() {
+    function getUsernameFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('username');
+    }
 
-// Get username and display it
-const username = getUsernameFromURL();
-if (username) {
-    document.getElementById('displayusername').textContent = username;
-} else {
-    // Handle the case when no username is provided
-    document.getElementById('displayusername').textContent = 'Guest';
-}
-
+    // Get username and display it
+    const username = getUsernameFromURL();
+    if (username) {
+        document.getElementById('displayusername').textContent = username;
+        document.getElementById('recipeLink').href = "recipe.html?username=" + username;
+    } else {
+        // Handle the case when no username is provided
+        document.getElementById('displayusername').textContent = 'Guest';
+        document.getElementById('recipeLink').href = "recipe.html";
+    }
 });
+
 
     </script>
     <style>
@@ -370,7 +372,7 @@ if (username) {
                         <a class="nav-link" href="#hero">Home</a>
                     </li>
                     <li class="nav-item">
-    <a class="nav-link" href="recipe.html?username=" + username>Recipes</a>
+    <a class="nav-link" id="recipeLink" href="">Recipes</a>
 </li>
                     <li class="nav-item">
                         <a class="nav-link" href="">Recipe Box</a>
