@@ -4,32 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe Box</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .recipe-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .recipe-list li {
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        .recipe-list li:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Recipe Box</h1>
-    <div id="savedRecipes"></div>
+    <h1>My Recipe Box</h1>
+
+    <ul class="recipe-list" id="recipeList">
+        <!-- Recipes will be dynamically populated here -->
+    </ul>
 
     <script>
-        // Retrieve saved recipes from local storage
-        const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+        // Fetch saved recipes for the logged-in user
+        google.script.run.withSuccessHandler(displayRecipes).getSavedRecipes();
 
-        // Display saved recipes
-        const savedRecipesContainer = document.getElementById('savedRecipes');
-        savedRecipes.forEach(recipe => {
-            const recipeDiv = document.createElement('div');
-            recipeDiv.innerHTML = `
-                <h2>${recipe.title}</h2>
-                <p>${recipe.servings}</p>
-                <p>${recipe.cookingTime}</p>
-                <ul>
-                    ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
-                </ul>
-                <ul>
-                    ${recipe.nutrition.map(nutrient => `<li>${nutrient}</li>`).join('')}
-                </ul>
-            `;
-            savedRecipesContainer.appendChild(recipeDiv);
-        });
+        function displayRecipes(recipes) {
+            var recipeList = document.getElementById("recipeList");
+            recipeList.innerHTML = ""; // Clear previous list
+
+            recipes.forEach(function(recipe) {
+                var li = document.createElement("li");
+                li.textContent = `Recipe ID: ${recipe[1]} - Saved by: ${recipe[0]}`;
+                recipeList.appendChild(li);
+            });
+        }
     </script>
 </body>
 </html>
