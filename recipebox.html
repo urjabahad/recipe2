@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Box</title>
+</head>
+<body>
+    <h1>Recipe Box</h1>
+    <div id="savedRecipes"></div>
+
+    <script>
+        // Retrieve saved recipes from local storage
+        const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+
+        // Display saved recipes
+        const savedRecipesContainer = document.getElementById('savedRecipes');
+        savedRecipes.forEach(recipe => {
+            const recipeDiv = document.createElement('div');
+            recipeDiv.innerHTML = `
+                <h2>${recipe.title}</h2>
+                <p>${recipe.servings}</p>
+                <p>${recipe.cookingTime}</p>
+                <ul>
+                    ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+                </ul>
+                <ul>
+                    ${recipe.nutrition.map(nutrient => `<li>${nutrient}</li>`).join('')}
+                </ul>
+            `;
+            savedRecipesContainer.appendChild(recipeDiv);
+        });
+    </script>
+</body>
+</html>
