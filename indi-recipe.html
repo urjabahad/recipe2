@@ -222,18 +222,22 @@ fetch(`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiK
     document.addEventListener("DOMContentLoaded", function () {
         // Add click event listener to the download button
         document.querySelector('.list .sel:nth-child(3)').addEventListener('click', function () {
-        // Get the recipe id
-        const recipeId = urlParams.get('id');
+    // Get the recipe id
+    const recipeId = urlParams.get('id');
 
-        // Get the username
-        const username = document.getElementById('displayusername').textContent;
+    // Get the username
+    const username = document.getElementById('displayusername').textContent;
 
-        // Call Google Apps Script function to save the recipe id
-        google.script.run.saveRecipe(username, recipeId);
+    // Call Google Apps Script function to save the recipe id
+    google.script.run.withSuccessHandler(function(response) {
+        if (response) {
+            alert('Recipe saved to favorites!');
+        } else {
+            alert('Error saving recipe');
+        }
+    }).saveRecipe(username, recipeId);
+});
 
-        // Inform the user that the recipe has been saved
-        alert('Recipe saved to favorites!');
-    });
         document.getElementById("downloadBtn").addEventListener("click", function () {
             // Get the HTML content of the target page
             var anotherPageContent = document.getElementById("new").outerHTML; // Replace documentElement with the appropriate selector for the target page
