@@ -154,31 +154,49 @@
     </div>
 </div>
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const recipeId = urlParams.get('id');
-    const username = urlParams.get('username');
+    // indi-recipe.html
 
-    if (username) {
-        document.getElementById('displayusername').textContent = username;
+// Function to save the recipe
+function saveRecipeToSpreadsheet(username, recipeId) {
+  fetch('https://script.google.com/macros/s/AKfycbw6ifyoBGKn7SOl66EhF-qrxUOMzs5mmX8SsKhQx24JUOTkpmnecVvjxbVM-0nA-Q4h/exec', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      action: 'saveRecipe',
+      username: username,
+      recipeId: recipeId
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data === true) {
+      alert('Recipe saved successfully!');
     } else {
-        document.getElementById('displayusername').textContent = 'Guest';
+      alert('Error saving recipe.');
     }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert('An error occurred while saving the recipe.');
+  });
+}
 
-    document.querySelector('.list .sel:nth-child(3)').addEventListener('click', function () {
-        if (recipeId) {
-            google.script.run.withSuccessHandler(function() {
-                alert('Recipe saved to favorites!');
-            }).withFailureHandler(function(error) {
-                alert('Failed to save recipe: ' + error);
-            }).saveRecipe(username, recipeId);
-        } else {
-            alert('Recipe ID is missing.');
-        }
-    });
+// Example usage:
+const urlParams = new URLSearchParams(window.location.search);
+const recipeId = urlParams.get('id');
+const username = urlParams.get('username');
 
-    // Rest of your script
+document.addEventListener('DOMContentLoaded', function() {
+  // Your existing code
+  
+  // Add event listener to the "Save to favorites" button
+  document.querySelector('.sel:nth-child(3)').addEventListener('click', function() {
+    saveRecipeToSpreadsheet(username, recipeId);
+  });
 });
+
 </script>
 <script>
     // Get recipe id from URL query parameter
