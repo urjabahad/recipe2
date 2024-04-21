@@ -320,7 +320,7 @@
 
         function getRecipesbyDiet(category) {
             $.ajax({
-                url: `https://api.spoonacular.com/recipes/complexSearch?diet=${category}&apiKey=dfdb24521211484f853aa615b909f2e2`,
+                url: `https://api.spoonacular.com/recipes/complexSearch?diet=${category}&apiKey=856a5576dd0e4baca0be5e4b5f558e6b`,
                 success: function (res) {
                     displayRecipes(res.results);
                 }
@@ -406,7 +406,7 @@
             recipes.forEach(recipe => {
                 const id = recipe.id;
                 $.ajax({
-                    url: `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=dfdb24521211484f853aa615b909f2e2`,
+                    url: `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=856a5576dd0e4baca0be5e4b5f558e6b`,
                     success: function (res) {
                         recipeDisplay(res);
                     }
