@@ -153,6 +153,32 @@
         </div></div>
     </div>
 </div>
+    document.addEventListener("DOMContentLoaded", function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const recipeId = urlParams.get('id');
+    const username = urlParams.get('username');
+
+    if (username) {
+        document.getElementById('displayusername').textContent = username;
+    } else {
+        document.getElementById('displayusername').textContent = 'Guest';
+    }
+
+    document.querySelector('.list .sel:nth-child(3)').addEventListener('click', function () {
+        if (recipeId) {
+            google.script.run.withSuccessHandler(function() {
+                alert('Recipe saved to favorites!');
+            }).withFailureHandler(function(error) {
+                alert('Failed to save recipe: ' + error);
+            }).saveRecipe(username, recipeId);
+        } else {
+            alert('Recipe ID is missing.');
+        }
+    });
+
+    // Rest of your script
+});
+</script>
 <script>
     // Get recipe id from URL query parameter
 const urlParams = new URLSearchParams(window.location.search);
@@ -221,23 +247,6 @@ fetch(`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiK
 
     document.addEventListener("DOMContentLoaded", function () {
         // Add click event listener to the download button
-        document.querySelector('.list .sel:nth-child(3)').addEventListener('click', function () {
-    // Get the recipe id
-    const recipeId = urlParams.get('id');
-
-    // Get the username
-    const username = document.getElementById('displayusername').textContent;
-
-    // Call Google Apps Script function to save the recipe id
-    google.script.run.withSuccessHandler(function(response) {
-        if (response) {
-            alert('Recipe saved to favorites!');
-        } else {
-            alert('Error saving recipe');
-        }
-    }).saveRecipe(username, recipeId);
-});
-
         document.getElementById("downloadBtn").addEventListener("click", function () {
             // Get the HTML content of the target page
             var anotherPageContent = document.getElementById("new").outerHTML; // Replace documentElement with the appropriate selector for the target page
