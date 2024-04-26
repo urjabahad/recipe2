@@ -9,8 +9,6 @@
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v6.5.1/css/all.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.8.0/html2pdf.bundle.min.js"></script>
-
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
@@ -153,52 +151,9 @@
         </div></div>
     </div>
 </div>
-    <script>
-    // indi-recipe.html
-
-// Function to save the recipe
-function saveRecipeToSpreadsheet(username, recipeId) {
-  fetch('https://script.google.com/macros/s/AKfycbw6ifyoBGKn7SOl66EhF-qrxUOMzs5mmX8SsKhQx24JUOTkpmnecVvjxbVM-0nA-Q4h/exec', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      action: 'saveRecipe',
-      username: username,
-      recipeId: recipeId
-    })
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data === true) {
-      alert('Recipe saved successfully!');
-    } else {
-      alert('Error saving recipe.');
-    }
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    alert('An error occurred while saving the recipe.');
-  });
-}
-
-// Example usage:
-const urlParams = new URLSearchParams(window.location.search);
-const recipeId = urlParams.get('id');
-const username = urlParams.get('username');
-
-document.addEventListener('DOMContentLoaded', function() {
-  // Your existing code
-  
-  // Add event listener to the "Save to favorites" button
-  document.querySelector('.sel:nth-child(3)').addEventListener('click', function() {
-    saveRecipeToSpreadsheet(username, recipeId);
-  });
-});
-
-</script>
+    
 <script>
+    
     // Get recipe id from URL query parameter
 const urlParams = new URLSearchParams(window.location.search);
 const recipeId = urlParams.get('id');
@@ -263,7 +218,34 @@ fetch(`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiK
             console.error('Error fetching data:', error);
         }
     });
+function saveRecipeToServer(username, recipeId) {
+  // Send an HTTP POST request to the server
+  $.ajax({
+    url: '/save-recipe', // Endpoint on your Node.js server
+    method: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify({ username: username, recipeId: recipeId }),
+    success: function (response) {
+      if (response.success) {
+        alert('Recipe saved successfully!');
+      } else {
+        alert('Error saving recipe.');
+      }
+    },
+    error: function (error) {
+      console.error('Error saving recipe:', error);
+      alert('An error occurred while saving the recipe.');
+    }
+  });
+}
 
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Add event listener to the "Save to favorites" button
+  document.querySelector('.sel:nth-child(3)').addEventListener('click', function() {
+    saveRecipeToServer(username, recipeId);
+  });
+});
     document.addEventListener("DOMContentLoaded", function () {
         // Add click event listener to the download button
         document.getElementById("downloadBtn").addEventListener("click", function () {
