@@ -19,6 +19,7 @@ app.use(express.json());
 // Route to save recipe to the database
 app.post('/save-recipe', (req, res) => {
   const { username, recipeId } = req.body;
+console.log('Attempting to save recipe:', { username, recipeId });
 
   // Insert the recipe into the database
   pool.query(
