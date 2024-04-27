@@ -2,7 +2,7 @@ const express = require('express');
 const mysql = require('mysql2');
 
 const app = express();
-const PORT = 3306;
+const PORT = 3000;
 
 // Create a MySQL connection pool
 const pool = mysql.createPool({
@@ -31,6 +31,23 @@ console.log('Attempting to save recipe:', { username, recipeId });
         res.status(500).json({ success: false, error: 'Error saving recipe' });
       } else {
         res.json({ success: true });
+      }
+    }
+  );
+});
+// Route to retrieve saved recipes for a user
+// Route to fetch saved recipes for a particular user
+app.get('/saved-recipes', (req, res) => {
+  // Query to retrieve saved recipes
+  pool.query(
+    'SELECT * FROM saved_recipes',
+    (error, results) => {
+      if (error) {
+        console.error('Error fetching saved recipes:', error);
+        res.status(500).json({ success: false, error: 'Error fetching saved recipes' });
+      } else {
+        const savedRecipes = results.map(result => [result.username, result.recipeId]);
+        res.json({ success: true, savedRecipes });
       }
     }
   );

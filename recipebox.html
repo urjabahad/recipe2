@@ -36,7 +36,21 @@
 
     <script>
         // Fetch saved recipes for the logged-in user
-        google.script.run.withSuccessHandler(displayRecipes).getSavedRecipes();
+        fetchSavedRecipes();
+
+        function fetchSavedRecipes() {
+            // Make an AJAX request to fetch saved recipes
+            fetch('/saved-recipes')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        displayRecipes(data.savedRecipes);
+                    } else {
+                        console.error('Error fetching saved recipes:', data.error);
+                    }
+                })
+                .catch(error => console.error('Error fetching saved recipes:', error));
+        }
 
         function displayRecipes(recipes) {
             var recipeList = document.getElementById("recipeList");
