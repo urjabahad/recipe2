@@ -17,38 +17,41 @@ const pool = mysql.createPool({
 app.use(express.json());
 
 // Route to save recipe to the database
+// Handle POST request to save recipe
 app.post('/save-recipe', (req, res) => {
   const { username, recipeId } = req.body;
-console.log('Attempting to save recipe:', { username, recipeId });
 
-  // Insert the recipe into the database
+  // Insert recipe into MySQL database
   pool.query(
-    'INSERT INTO saved_recipes (username, recipeId) VALUES (?, ?)',
-    [username, recipeId],
-    (error, results) => {
-      if (error) {
-        console.error('Error saving recipe:', error);
-        res.status(500).json({ success: false, error: 'Error saving recipe' });
-      } else {
-        res.json({ success: true });
+      'INSERT INTO saved_recipes (username, recipeId) VALUES (?, ?)',
+      [username, recipeId],
+      (error, results) => {
+          if (error) {
+              console.error('Error saving recipe:', error);
+              res.status(500).json({ success: false, error: 'Error saving recipe' });
+          } else {
+              res.json({ success: true });
+          }
       }
-    }
   );
 });
-// Route to fetch saved recipes for a particular user
-app.get('/saved-recipes', (req, res) => {
-  // Query to retrieve saved recipes
+
+// Handle GET request to retrieve saved recipes
+app.get('/get-saved-recipes', (req, res) => {
+  const username = req.query.username;
+
+  // Query MySQL database for saved recipes
   pool.query(
-    'SELECT * FROM saved_recipes',
-    (error, results) => {
-      if (error) {
-        console.error('Error fetching saved recipes:', error);
-        res.status(500).json({ success: false, error: 'Error fetching saved recipes' });
-      } else {
-        const savedRecipes = results.map(result => [result.username, result.recipeId]);
-        res.json({ success: true, savedRecipes }); // Send JSON response
+      'SELECT * FROM saved_recipes WHERE username = ?',
+      [username],
+      (error, results) => {
+          if (error) {
+              console.error('Error retrieving saved recipes:', error);
+              res.status(500).json({ success: false, error: 'Error retrieving saved recipes' });
+          } else {
+              res.json({ success: true, recipes: results });
+          }
       }
-    }
   );
 });
 
