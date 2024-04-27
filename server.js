@@ -35,7 +35,6 @@ console.log('Attempting to save recipe:', { username, recipeId });
     }
   );
 });
-// Route to retrieve saved recipes for a user
 // Route to fetch saved recipes for a particular user
 app.get('/saved-recipes', (req, res) => {
   // Query to retrieve saved recipes
@@ -47,11 +46,12 @@ app.get('/saved-recipes', (req, res) => {
         res.status(500).json({ success: false, error: 'Error fetching saved recipes' });
       } else {
         const savedRecipes = results.map(result => [result.username, result.recipeId]);
-        res.json({ success: true, savedRecipes });
+        res.json({ success: true, savedRecipes }); // Send JSON response
       }
     }
   );
 });
+
 
 // Start the server
 app.listen(PORT, () => {
