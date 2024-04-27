@@ -220,29 +220,39 @@ fetch(`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiK
     });
 
 
-
 document.addEventListener('DOMContentLoaded', function() {
-
   // Add event listener to the "Save to favorites" button
-  fetch('/save-recipe', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username: username, recipeId: recipeId })
-    })
-    .then(response => {
-        if (response.ok) {
-            alert('Recipe saved successfully!');
-        } else {
-            alert('Error saving recipe.');
-        }
-    })
-    .catch(error => {
-        console.error('Error saving recipe:', error);
-        alert('An error occurred while saving the recipe.');
-    });
+  document.querySelector('.save-to-favorites-btn').addEventListener('click', function() {
+    // Get username and recipeId from your webpage
+     // Example: Replace 'recipeId' with the actual ID of your recipeId input field
+
+    // Call the function to save recipe data to Google Sheets
+    saveRecipeToGoogleSheets(username, recipeId);
+  });
 });
+// Function to save recipe data to Google Sheets using Google Apps Script web app
+function saveRecipeToGoogleSheets(username, recipeId) {
+  // Send a POST request to the Google Apps Script web app URL
+  fetch('https://script.google.com/macros/s/AKfycbzVRnb9gxoKeJVgWEtkowBVZPLFOsVfdAadPptV8BB6gM8PWYYmc2qOzFUzUPtuCNHCBA/exec', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ username: username, recipeId: recipeId })
+  })
+  .then(response => {
+    if (response.ok) {
+      alert('Recipe saved successfully!');
+    } else {
+      alert('Failed to save recipe.');
+    }
+  })
+  .catch(error => {
+    console.error('Error saving recipe:', error);
+    alert('An error occurred while saving the recipe.');
+  });
+}
+
     document.addEventListener("DOMContentLoaded", function () {
         // Add click event listener to the download button
         document.getElementById("downloadBtn").addEventListener("click", function () {
