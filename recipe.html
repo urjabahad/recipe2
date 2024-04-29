@@ -320,7 +320,7 @@
 
         function getRecipesbyDiet(category) {
             $.ajax({
-                url: `https://api.spoonacular.com/recipes/complexSearch?diet=${category}&apiKey=856a5576dd0e4baca0be5e4b5f558e6b`,
+                url: `https://api.spoonacular.com/recipes/complexSearch?diet=${category}&apiKey=c01c35d283df49e49efb4173ee0e48d1`,
                 success: function (res) {
                     displayRecipes(res.results);
                 }
@@ -339,7 +339,7 @@
 
         function getRecipesbyIntolerance(category) {
             $.ajax({
-                url: `https://api.spoonacular.com/recipes/complexSearch?intolerances=${category}&apiKey=856a5576dd0e4baca0be5e4b5f558e6b`,
+                url: `https://api.spoonacular.com/recipes/complexSearch?intolerances=${category}&apiKey=c01c35d283df49e49efb4173ee0e48d1`,
                 success: function (res) {
                     displayRecipes(res.results);
                 }
@@ -348,7 +348,7 @@
 
         function getRecipesbyType(category) {
             $.ajax({
-                url: `https://api.spoonacular.com/recipes/complexSearch?type=${category}&apiKey=856a5576dd0e4baca0be5e4b5f558e6b`,
+                url: `https://api.spoonacular.com/recipes/complexSearch?type=${category}&apiKey=c01c35d283df49e49efb4173ee0e48d1`,
                 success: function (res) {
                     displayRecipes(res.results);
                 }
@@ -356,7 +356,7 @@
         }
         function getRecipesbyTime() {
             $.ajax({
-                url: `https://api.spoonacular.com/recipes/complexSearch?maxReadyTime=30&apiKey=856a5576dd0e4baca0be5e4b5f558e6b`,
+                url: `https://api.spoonacular.com/recipes/complexSearch?maxReadyTime=30&apiKey=c01c35d283df49e49efb4173ee0e48d1`,
                 success: function (res) {
                     displayRecipes(res.results);
                 }
@@ -367,7 +367,7 @@
 
         function getRecipesbyCuisine(category) {
             $.ajax({
-                url: `https://api.spoonacular.com/recipes/complexSearch?cuisine=${category}&apiKey=856a5576dd0e4baca0be5e4b5f558e6b`,
+                url: `https://api.spoonacular.com/recipes/complexSearch?cuisine=${category}&apiKey=c01c35d283df49e49efb4173ee0e48d1`,
                 success: function (res) {
                     displayRecipes(res.results);
                 }
@@ -376,7 +376,7 @@
 
         function getRecipesbyLowCal() {
             $.ajax({
-                url: `https://api.spoonacular.com/recipes/complexSearch?maxCalories=500&apiKey=856a5576dd0e4baca0be5e4b5f558e6b`,
+                url: `https://api.spoonacular.com/recipes/complexSearch?maxCalories=500&apiKey=c01c35d283df49e49efb4173ee0e48d1`,
                 success: function (res) {
                     displayRecipes(res.results);
                 }
