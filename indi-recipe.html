@@ -2,13 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.8.0/html2pdf.bundle.min.js"></script><script
+			src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+			integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
     <script src="https://apis.google.com/js/api.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v6.5.1/css/all.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.8.0/html2pdf.bundle.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
@@ -257,34 +261,41 @@
             alert('An error occurred while saving the recipe.');
         });
     }
-    document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     // Add click event listener to the download button
     document.getElementById("downloadBtn").addEventListener("click", function () {
-        // Get the HTML content of the target page
-        var anotherPageContent = document.getElementById("new").outerHTML; // Replace documentElement with the appropriate selector for the target page
+        // Clone the container element to exclude the image
+        var containerClone = document.getElementById("container").cloneNode(true);
 
-        // Create a Blob object from the updated HTML content
-        var blob = new Blob([anotherPageContent], { type: "text/html" });
+        // Remove the image div from the cloned container
+        var imageDiv = containerClone.querySelector("#recipeImage");
+        if (imageDiv) {
+            imageDiv.remove();
+        }
+        
+        var side = containerClone.querySelector(".side");
+        if (side) {
+            side.remove();
+        }
+        
 
-        // Create a temporary anchor element
-        var downloadLink = document.createElement("a");
+        // Remove background colors from all elements
+        var allElements = containerClone.querySelectorAll("*");
+        allElements.forEach(function (element) {
+            element.style.backgroundColor = "#02066F";
+            element.style.color = "#FFD700"; // Set text color to gold
+        });
 
-        // Set the href attribute to the URL of the Blob object
-        downloadLink.href = URL.createObjectURL(blob);
+        
 
-        // Set the download attribute with the desired filename
-        downloadLink.download = "downloaded_page.html";
+        // Get the HTML content of the cloned container as a string
+        var containerHTML = containerClone.outerHTML;
 
-        // Append the anchor element to the document body
-        document.body.appendChild(downloadLink);
-
-        // Simulate a click on the anchor element
-        downloadLink.click();
-
-        // Remove the anchor element from the document body
-        document.body.removeChild(downloadLink);
+        // Use html2pdf to convert the HTML string to PDF
+        html2pdf().from(containerHTML).save();
     });
 });
+
 
 </script>
 
