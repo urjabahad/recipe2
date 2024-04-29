@@ -178,7 +178,7 @@
     }
 
     const instructionsContainer = document.getElementById('instructions');
-    fetch(`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiKey=856a5576dd0e4baca0be5e4b5f558e6b`)
+    fetch(`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiKey=c01c35d283df49e49efb4173ee0e48d1`)
         .then(response => response.json())
         .then(data => {
             // Check if data has instructions
@@ -201,7 +201,7 @@
             }
         })
         .catch(error => console.error('Error fetching instructions:', error));
-    const apiUrl = `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=856a5576dd0e4baca0be5e4b5f558e6b&&includeNutrition=true`;
+    const apiUrl = `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=c01c35d283df49e49efb4173ee0e48d1&&includeNutrition=true`;
 
     // Fetch data from Spoonacular API
     $.ajax({
