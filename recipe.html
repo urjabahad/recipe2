@@ -384,7 +384,7 @@
         }
         function getRecipesbyLowCarb() {
             $.ajax({
-                url: `https://api.spoonacular.com/recipes/complexSearch?maxCarbs=150&apiKey=856a5576dd0e4baca0be5e4b5f558e6b`,
+                url: `https://api.spoonacular.com/recipes/complexSearch?maxCarbs=150&apiKey=c01c35d283df49e49efb4173ee0e48d1`,
                 success: function (res) {
                     displayRecipes(res.results);
                 }
@@ -392,7 +392,7 @@
         }
         function getRecipesbyHighPro() {
             $.ajax({
-                url: `https://api.spoonacular.com/recipes/complexSearch?minProtein=2&apiKey=856a5576dd0e4baca0be5e4b5f558e6b`,
+                url: `https://api.spoonacular.com/recipes/complexSearch?minProtein=2&apiKey=c01c35d283df49e49efb4173ee0e48d1`,
                 success: function (res) {
                     displayRecipes(res.results);
                 }
