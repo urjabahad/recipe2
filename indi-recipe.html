@@ -263,39 +263,36 @@
         });
     }
 document.addEventListener("DOMContentLoaded", function () {
-    // Add click event listener to the download button
-    document.getElementById("downloadBtn").addEventListener("click", function () {
-        // Clone the container element to exclude the image
-        var containerClone = document.getElementById("container").cloneNode(true);
+            // Add click event listener to the download button
+            document.getElementById("downloadBtn").addEventListener("click", function () {
+                // Get the HTML content of the target page
+                var containerContent = document.getElementById("container").innerHTML;
 
-        // Remove the image div from the cloned container
-        var imageDiv = containerClone.querySelector("#recipeImage");
-        if (imageDiv) {
-            imageDiv.remove();
-        }
-        
-        var side = containerClone.querySelector(".side");
-        if (side) {
-            side.remove();
-        }
-        
+                // Create a new Blob object from the container content
+                var blob = new Blob([containerContent], { type: "text/html" });
 
-        // Remove background colors from all elements
-        var allElements = containerClone.querySelectorAll("*");
-        allElements.forEach(function (element) {
-            element.style.backgroundColor = "#02066F";
-            element.style.color = "#FFD700"; // Set text color to gold
+                // Create a temporary anchor element
+                var downloadLink = document.createElement("a");
+
+                // Set the href attribute to the URL of the Blob object
+                downloadLink.href = URL.createObjectURL(blob);
+
+                // Set the download attribute with the desired filename
+                downloadLink.download = "recipe_content.html";
+
+                // Append the anchor element to the document body
+                document.body.appendChild(downloadLink);
+
+                // Simulate a click on the anchor element
+                downloadLink.click();
+
+                // Remove the anchor element from the document body
+                document.body.removeChild(downloadLink);
+
+                // Convert the downloaded HTML file to PDF
+                html2pdf().from(blob).save();
+            });
         });
-
-        
-
-        // Get the HTML content of the cloned container as a string
-        var containerHTML = containerClone.outerHTML;
-
-        // Use html2pdf to convert the HTML string to PDF
-        html2pdf().from(containerHTML).save();
-    });
-});
 
 
 </script>
