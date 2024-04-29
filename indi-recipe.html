@@ -7,11 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v6.5.1/css/all.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.8.0/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.8.0/html2pdf.bundle.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
     <title>Recipe Details</title>
     <style>
         *{
@@ -20,7 +20,8 @@
         }
         #instructions p{
             margin-top: 2%;
-        }.right{
+        }
+        .right{
             background-color: #f8d3b6;
         }
         #instructions{
@@ -48,15 +49,15 @@
             margin-top: 5%;
         }
         .sel{
-           padding: 3% ;
-           font-size: 3vh;
-           text-align: left;
-           margin-left: 3%;
+            padding: 3%;
+            font-size: 3vh;
+            text-align: left;
+            margin-left: 3%;
         }
         .sel:hover{
             cursor: pointer;
             transform: scale(1.1);
-    transition: 0.3s ease-in-out;
+            transition: 0.3s ease-in-out;
             background-color: #d7cbde;
         }
         li{
@@ -92,7 +93,7 @@
             height: 10vh;
             justify-content: space-between;
         }   
-        .ing,.n{
+        .ing, .n{
             margin-top: 5%;
             font-size: 3.5vh;
         }
@@ -124,12 +125,12 @@
         </div>
         <div id="new">
             <h2><b id="displayusername" style="color:red;"></b></h2>
-         <div class="name" id="name">
-            <p class="title" id="recipeTitle">Fresh Baked Pancakes</p>
-            <div class="basic">
-                <p class="serve" id="recipeServings"><i class="fa-solid fa-utensils"></i>2 servings</p>
-                <p class="time" id="recipeCookingTime"><i class="fa-solid fa-clock"></i>15 minutes</p>
-            </div>
+            <div class="name" id="name">
+                <p class="title" id="recipeTitle">Fresh Baked Pancakes</p>
+                <div class="basic">
+                    <p class="serve" id="recipeServings"><i class="fa-solid fa-utensils"></i>2 servings</p>
+                    <p class="time" id="recipeCookingTime"><i class="fa-solid fa-clock"></i>15 minutes</p>
+                </div>
                 <p class="ing">INGREDIENTS</p>
                 <div class="ingredients"><!--<li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptate accusantium magni ipsam iste natus nemo, praesentium ipsa aliquid numquam id doloremque saepe hic, suscipit exercitationem quam nulla tempora totam!
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga ipsum vero numquam voluptatibus magnam dolore. V  rem ipsa obcaecati consequatur explicabo, iusto quia eos. Magnam animi voluptate velit perspiciatis!
@@ -143,20 +144,33 @@
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates debitis itaque necessitatibus repellendus veniam repudiandae voluptatem id dolores? Veritatis ut fugiat quibusdam, modi animi excepturi error corrupti vero repellendus quae!
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit delectus tempora, temporibus nihil ipsa ipsam, illo animi blanditiis nisi facere repellendus aliquam laborum esse cum similique odit repellat molestiae provident.
                     Lorem ipsum dolor sit amet, c --></div>
+            </div>
+            <div class="right">
+                <div id="recipeImage"></div>
+                <p class="r">Directions</p>
+                <div id="instructions">
+                </div>
+            </div>
         </div>
-        <div class="right">
-        <div id="recipeImage"></div>
-        <p class="r">Directions</p>
-        <div id="instructions">
-        </div></div>
     </div>
-</div>
-    
+
 <script>
-    
+    document.addEventListener("DOMContentLoaded", function () {
+        // Add click event listener to the download button
+        document.getElementById("downloadBtn").addEventListener("click", function () {
+            // Get the HTML content of the target page
+            var recipeDetailsHtml = document.getElementById("new").outerHTML;
+
+            // Convert HTML to PDF
+            html2pdf().from(recipeDetailsHtml).save();
+        });
+    });
+</script>
+
+<script>
     // Get recipe id from URL query parameter
-const urlParams = new URLSearchParams(window.location.search);
-const recipeId = urlParams.get('id');
+    const urlParams = new URLSearchParams(window.location.search);
+    const recipeId = urlParams.get('id');
 
     // Get username and display it
     const username = urlParams.get('username');
@@ -167,30 +181,30 @@ const recipeId = urlParams.get('id');
         // Handle the case when no username is provided
         document.getElementById('displayusername').textContent = 'Guest';
     }
-const instructionsContainer = document.getElementById('instructions');
-fetch(`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiKey=856a5576dd0e4baca0be5e4b5f558e6b`)
-            .then(response => response.json())
-            .then(data => {
-                // Check if data has instructions
-                if (data && data.length > 0) {
-                    // Extract instructions from each step
-                    const steps = data[0].steps;
+    const instructionsContainer = document.getElementById('instructions');
+    fetch(`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiKey=856a5576dd0e4baca0be5e4b5f558e6b`)
+        .then(response => response.json())
+        .then(data => {
+            // Check if data has instructions
+            if (data && data.length > 0) {
+                // Extract instructions from each step
+                const steps = data[0].steps;
 
-                    // Create HTML elements for each step
-                    const instructionsContainer = document.getElementById('instructions');
-                    steps.forEach(step => {
-                        var stepElement = document.createElement('p');
-                        stepElement.textContent = step.step;
-                        instructionsContainer.appendChild(stepElement);
-                    });
+                // Create HTML elements for each step
+                const instructionsContainer = document.getElementById('instructions');
+                steps.forEach(step => {
+                    var stepElement = document.createElement('p');
+                    stepElement.textContent = step.step;
+                    instructionsContainer.appendChild(stepElement);
+                });
 
-                    // Display the instructions container
-                    instructionsContainer.style.display = 'block';
-                } else {
-                    console.error('No instructions found for the recipe.');
-                }
-            })
-            .catch(error => console.error('Error fetching instructions:', error));
+                // Display the instructions container
+                instructionsContainer.style.display = 'block';
+            } else {
+                console.error('No instructions found for the recipe.');
+            }
+        })
+        .catch(error => console.error('Error fetching instructions:', error));
     const apiUrl = `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=856a5576dd0e4baca0be5e4b5f558e6b&&includeNutrition=true`;
         
     // Fetch data from Spoonacular API
@@ -202,14 +216,14 @@ fetch(`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiK
             const ingredientsList = data.extendedIngredients.map(ingredient => `<li>${ingredient.original}</li>`).join('');
             $(".ingredients").html(`<ul>${ingredientsList}</ul>`);
             const imageUrl = data.image;
-        $("#recipeImage").css("background-image", `url(${imageUrl})`);
-        const recipeTitle = data.title;
-        $("#recipeTitle").text(recipeTitle);
-        const servings = data.servings;
-        const cookingTime = data.readyInMinutes;
+            $("#recipeImage").css("background-image", `url(${imageUrl})`);
+            const recipeTitle = data.title;
+            $("#recipeTitle").text(recipeTitle);
+            const servings = data.servings;
+            const cookingTime = data.readyInMinutes;
 
-        $("#recipeServings").html(`<i class="fa-solid fa-utensils"></i>${servings} servings`);
-        $("#recipeCookingTime").html(`<i class="fa-solid fa-clock"></i>${cookingTime} minutes`);
+            $("#recipeServings").html(`<i class="fa-solid fa-utensils"></i>${servings} servings`);
+            $("#recipeCookingTime").html(`<i class="fa-solid fa-clock"></i>${cookingTime} minutes`);
             const nutritionInfo =data.nutrition.nutrients.slice(0,10);
             const nutritionList = nutritionInfo.map(nutrient => `<li>${nutrient.name}: ${nutrient.amount} ${nutrient.unit}</li>`).join('');
             $(".nutri").html(`<ul>${nutritionList}</ul>`);
@@ -252,23 +266,7 @@ function saveRecipeToGoogleSheets(username, recipeId) {
     alert('An error occurred while saving the recipe.');
   });
 }
-    
-   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Add click event listener to the download button
-        document.getElementById("downloadBtn").addEventListener("click", function () {
-            // Get the HTML content of the target page
-            var recipeDetailsHtml = document.getElementById("new").outerHTML;
-
-            // Convert HTML to PDF
-            html2pdf().from(recipeDetailsHtml).save();
-        });
-    });
 </script>
-
-
-    
-    </script>
 
 </body>
 </html>
