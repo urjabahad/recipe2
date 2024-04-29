@@ -253,43 +253,19 @@ function saveRecipeToGoogleSheets(username, recipeId) {
   });
 }
     
+   <script>
     document.addEventListener("DOMContentLoaded", function () {
         // Add click event listener to the download button
         document.getElementById("downloadBtn").addEventListener("click", function () {
             // Get the HTML content of the target page
             var recipeDetailsHtml = document.getElementById("new").outerHTML;
 
-            // Fetch the image URL
-            var recipeImageUrl = document.getElementById("recipeImage").style.backgroundImage.replace(/url\(['"](.+)['"]\)/, '$1');
-
-            // Create a Promise to load the image
-            var loadImage = new Promise(function (resolve, reject) {
-                var img = new Image();
-                img.crossOrigin = "Anonymous";
-                img.src = recipeImageUrl;
-                img.onload = function () {
-                    resolve(img);
-                };
-                img.onerror = function () {
-                    reject(new Error("Failed to load image"));
-                };
-            });
-
-            // Once the image is loaded, convert the HTML to PDF
-            loadImage.then(function (image) {
-                // Embed the image in the HTML content
-                recipeDetailsHtml = recipeDetailsHtml.replace('</body>', `<img src="${image.src}" /></body>`);
-                recipeDetailsHtml = `<div style="background-color: #e6f7ff">${recipeDetailsHtml}</div>`;
-
-                // Convert HTML to PDF
-                html2pdf().from(recipeDetailsHtml).save();
-            }).catch(function (error) {
-                console.error('Error loading image:', error);
-                // If image loading fails, convert HTML to PDF without the image
-                html2pdf().from(recipeDetailsHtml).save();
-            });
+            // Convert HTML to PDF
+            html2pdf().from(recipeDetailsHtml).save();
         });
     });
+</script>
+
 
     
     </script>
