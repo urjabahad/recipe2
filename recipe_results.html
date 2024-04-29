@@ -176,50 +176,16 @@ a:hover {
       }
 
       // Function to handle the "Details" button click
-      document.addEventListener('click', async function(event) {
-        if (event.target.classList.contains('details-button')) {
-          const recipeId = event.target.getAttribute('data-recipe-id');
-          const recipeDetails = await fetchRecipeDetails(recipeId);
+     // Function to handle the "Details" button click
+document.addEventListener('click', async function(event) {
+  if (event.target.classList.contains('details-button')) {
+    const recipeId = event.target.getAttribute('data-recipe-id');
+    
+    // Navigate to indi-recipe.html with the recipe ID as a parameter
+    window.location.href = `indi-recipe.html?recipeId=${recipeId}`;
+  }
+});
 
-          // Create the popup content
-          const popupContent = `
-          <div class="popup">
-            <h2>${recipeDetails.title}</h2>
-            <p>Ingredients:</p>
-            <ul>${recipeDetails.extendedIngredients.map(ingredient => `<li>${ingredient.original}</li>`).join('')}</ul>
-            <p>Instructions:</p>
-            <p>${recipeDetails.instructions}</p>
-            <div>
-              <button id="downloadButton">Download</button>
-              <button id="closeButton">Close</button>
-            </div>
-          </div>`;
-
-          // Append popup content to body
-          document.body.insertAdjacentHTML('beforeend', popupContent);
-
-          // Event listener for close button
-          document.getElementById('closeButton').addEventListener('click', function() {
-            document.querySelector('.popup').remove();
-          });
-
-          // Event listener for download button
-          document.getElementById('downloadButton').addEventListener('click', function() {
-            // Create a blob containing the ingredients and instructions
-            const text = `Ingredients:\n${recipeDetails.extendedIngredients.map(ingredient => `${ingredient.original}`).join('\n')}\n\nInstructions:\n${recipeDetails.instructions}`;
-            const blob = new Blob([text], { type: 'text/plain' });
-
-            // Create a temporary link element to trigger the download
-            const a = document.createElement('a');
-            a.href = window.URL.createObjectURL(blob);
-            a.download = `${recipeDetails.title}_recipe.txt`;
-            a.click();
-
-            // Clean up
-            window.URL.revokeObjectURL(a.href);
-          });
-        }
-      });
     </script>
 
     <a href="landing.html">Back to home</a>
