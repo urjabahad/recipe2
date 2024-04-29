@@ -406,7 +406,7 @@
             recipes.forEach(recipe => {
                 const id = recipe.id;
                 $.ajax({
-                    url: `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=856a5576dd0e4baca0be5e4b5f558e6b`,
+                    url: `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=c01c35d283df49e49efb4173ee0e48d1`,
                     success: function (res) {
                         recipeDisplay(res);
                     }
