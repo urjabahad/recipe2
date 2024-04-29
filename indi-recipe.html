@@ -165,9 +165,7 @@
             html2pdf().from(recipeDetailsHtml).save();
         });
     });
-</script>
 
-<script>
     // Get recipe id from URL query parameter
     const urlParams = new URLSearchParams(window.location.search);
     const recipeId = urlParams.get('id');
@@ -181,6 +179,7 @@
         // Handle the case when no username is provided
         document.getElementById('displayusername').textContent = 'Guest';
     }
+
     const instructionsContainer = document.getElementById('instructions');
     fetch(`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiKey=856a5576dd0e4baca0be5e4b5f558e6b`)
         .then(response => response.json())
@@ -206,7 +205,7 @@
         })
         .catch(error => console.error('Error fetching instructions:', error));
     const apiUrl = `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=856a5576dd0e4baca0be5e4b5f558e6b&&includeNutrition=true`;
-        
+
     // Fetch data from Spoonacular API
     $.ajax({
         url: apiUrl,
@@ -233,40 +232,41 @@
         }
     });
 
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add event listener to the "Save to favorites" button
+        document.querySelector('.save-to-favorites-btn').addEventListener('click', function() {
+            // Get username and recipeId from your webpage
+             // Example: Replace 'recipeId' with the actual ID of your recipeId input field
 
-document.addEventListener('DOMContentLoaded', function() {
-  // Add event listener to the "Save to favorites" button
-  document.querySelector('.save-to-favorites-btn').addEventListener('click', function() {
-    // Get username and recipeId from your webpage
-     // Example: Replace 'recipeId' with the actual ID of your recipeId input field
+            // Call the function to save recipe data to Google Sheets
+            saveRecipeToGoogleSheets(username, recipeId);
+        });
+    });
 
-    // Call the function to save recipe data to Google Sheets
-    saveRecipeToGoogleSheets(username, recipeId);
-  });
-});
-// Function to save recipe data to Google Sheets using Google Apps Script web app
-function saveRecipeToGoogleSheets(username, recipeId) {
-  // Send a POST request to the Google Apps Script web app URL
-  fetch('https://script.google.com/macros/s/AKfycbzVRnb9gxoKeJVgWEtkowBVZPLFOsVfdAadPptV8BB6gM8PWYYmc2qOzFUzUPtuCNHCBA/exec', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ username: username, recipeId: recipeId })
-  })
-  .then(response => {
-    if (response.ok) {
-      alert('Recipe saved successfully!');
-    } else {
-      alert('Failed to save recipe.');
+    // Function to save recipe data to Google Sheets using Google Apps Script web app
+    function saveRecipeToGoogleSheets(username, recipeId) {
+        // Send a POST request to the Google Apps Script web app URL
+        fetch('https://script.google.com/macros/s/AKfycbzVRnb9gxoKeJVgWEtkowBVZPLFOsVfdAadPptV8BB6gM8PWYYmc2qOzFUzUPtuCNHCBA/exec', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username: username, recipeId: recipeId })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Recipe saved successfully!');
+            } else {
+                alert('Failed to save recipe.');
+            }
+        })
+        .catch(error => {
+            console.error('Error saving recipe:', error);
+            alert('An error occurred while saving the recipe.');
+        });
     }
-  })
-  .catch(error => {
-    console.error('Error saving recipe:', error);
-    alert('An error occurred while saving the recipe.');
-  });
-}
 </script>
+
 
 </body>
 </html>
