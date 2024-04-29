@@ -155,16 +155,8 @@
     </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Add click event listener to the download button
-        document.getElementById("downloadBtn").addEventListener("click", function () {
-            // Get the HTML content of the target page
-            var recipeDetailsHtml = document.getElementById("new").outerHTML;
+    
 
-            // Convert HTML to PDF
-            html2pdf().from(recipeDetailsHtml).save();
-        });
-    });
 
     // Get recipe id from URL query parameter
     const urlParams = new URLSearchParams(window.location.search);
@@ -265,6 +257,16 @@
             alert('An error occurred while saving the recipe.');
         });
     }
+    document.addEventListener("DOMContentLoaded", function () {
+    // Add click event listener to the download button
+    document.getElementById("downloadBtn").addEventListener("click", function () {
+        // Get the HTML content of the recipe details
+        var recipeDetailsHtml = document.getElementById("name").outerHTML;
+
+        // Convert HTML to PDF
+        html2pdf().from(recipeDetailsHtml).save();
+    });
+});
 </script>
 
 
