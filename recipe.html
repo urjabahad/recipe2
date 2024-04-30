@@ -320,7 +320,7 @@
 
         function getRecipesbyDiet(category) {
             $.ajax({
-                url: `https://api.spoonacular.com/recipes/complexSearch?diet=${category}&apiKey=82c4e6affc314f3cac3adf113aa2f208`,
+                url: `https://api.spoonacular.com/recipes/complexSearch?diet=${category}&apiKey=35ac46a2c2024db181ddf83cab2700c4`,
                 success: function (res) {
                     displayRecipes(res.results);
                 }
@@ -334,7 +334,7 @@
 
         function getRecipesbyIntolerance(category) {
             $.ajax({
-                url: `https://api.spoonacular.com/recipes/complexSearch?intolerances=${category}&apiKey=64471df77d8c4ab08bcccb02a3e2bec6`,
+                url: `https://api.spoonacular.com/recipes/complexSearch?intolerances=${category}&apiKey=35ac46a2c2024db181ddf83cab2700c4`,
                 success: function (res) {
                     displayRecipes(res.results);
                 }
@@ -343,7 +343,7 @@
 
         function getRecipesbyType(category) {
             $.ajax({
-                url: `https://api.spoonacular.com/recipes/complexSearch?type=${category}&apiKey=64471df77d8c4ab08bcccb02a3e2bec6`,
+                url: `https://api.spoonacular.com/recipes/complexSearch?type=${category}&apiKey=35ac46a2c2024db181ddf83cab2700c4`,
                 success: function (res) {
                     displayRecipes(res.results);
                 }
@@ -351,7 +351,7 @@
         }
         function getRecipesbyTime() {
             $.ajax({
-                url: `https://api.spoonacular.com/recipes/complexSearch?maxReadyTime=30&apiKey=64471df77d8c4ab08bcccb02a3e2bec6`,
+                url: `https://api.spoonacular.com/recipes/complexSearch?maxReadyTime=30&apiKey=35ac46a2c2024db181ddf83cab2700c4`,
                 success: function (res) {
                     displayRecipes(res.results);
                 }
@@ -362,7 +362,7 @@
 
         function getRecipesbyCuisine(category) {
             $.ajax({
-                url: `https://api.spoonacular.com/recipes/complexSearch?cuisine=${category}&apiKey=64471df77d8c4ab08bcccb02a3e2bec6`,
+                url: `https://api.spoonacular.com/recipes/complexSearch?cuisine=${category}&apiKey=35ac46a2c2024db181ddf83cab2700c4`,
                 success: function (res) {
                     displayRecipes(res.results);
                 }
@@ -371,7 +371,7 @@
 
         function getRecipesbyLowCal() {
             $.ajax({
-                url: `https://api.spoonacular.com/recipes/complexSearch?maxCalories=500&apiKey=64471df77d8c4ab08bcccb02a3e2bec6`,
+                url: `https://api.spoonacular.com/recipes/complexSearch?maxCalories=500&apiKey=35ac46a2c2024db181ddf83cab2700c4`,
                 success: function (res) {
                     displayRecipes(res.results);
                 }
@@ -379,7 +379,7 @@
         }
         function getRecipesbyLowCarb() {
             $.ajax({
-                url: `https://api.spoonacular.com/recipes/complexSearch?maxCarbs=150&apiKey=64471df77d8c4ab08bcccb02a3e2bec6`,
+                url: `https://api.spoonacular.com/recipes/complexSearch?maxCarbs=150&apiKey=35ac46a2c2024db181ddf83cab2700c4`,
                 success: function (res) {
                     displayRecipes(res.results);
                 }
@@ -387,7 +387,7 @@
         }
         function getRecipesbyHighPro() {
             $.ajax({
-                url: `https://api.spoonacular.com/recipes/complexSearch?minProtein=2&apiKey=64471df77d8c4ab08bcccb02a3e2bec6`,
+                url: `https://api.spoonacular.com/recipes/complexSearch?minProtein=2&apiKey=35ac46a2c2024db181ddf83cab2700c4`,
                 success: function (res) {
                     displayRecipes(res.results);
                 }
@@ -401,7 +401,7 @@
             recipes.forEach(recipe => {
                 const id = recipe.id;
                 $.ajax({
-                    url: `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=64471df77d8c4ab08bcccb02a3e2bec6`,
+                    url: `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=35ac46a2c2024db181ddf83cab2700c4`,
                     success: function (res) {
                         recipeDisplay(res);
                     }
