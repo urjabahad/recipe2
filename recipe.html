@@ -334,7 +334,7 @@
     let encodedUsername = encodeURIComponent(username);
 
     // Redirect to index.html with the username as a query parameter
-    window.location.href = `index.html?username=${encodedUsername}`;
+    window.location.href = `index.html`;
 }
 
         function getRecipesbyIntolerance(category) {
@@ -413,7 +413,6 @@
                 });
             });
         }
-         
         function openRecipePage(recipeId) {
     // Redirect to a new page with the selected recipe's instructions and username
     window.location.href = `indi-recipe.html?id=${recipeId}`;
